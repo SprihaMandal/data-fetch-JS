@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+
+    <style>
+        #btn {
+            margin: 10px;
+            border: 1px solid greenyellow;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: bisque;
+
+        }
+
+        #booklist {
+            border: 1px solid greenyellow;
+            border-radius: 12px;
+            margin: 10px;
+            padding: 20px;
+            width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">Click to get books</button>
+    <div id="booklist">
+
+    </div>
+
+    <script>
+        let btn = document.getElementById('btn');
+        let booklist = document.getElementById('booklist');
+        const apiUrl = "https://api.npoint.io/3ea9c155134bcf2a4b39";
+
+        let showData = (books) => {
+            for (b of books) {
+                let para = document.createElement('p');
+                para.innerText = `Book : ${b.book} \n Author : ${b.author}`;
+                booklist.append(para);
+            }
+        }
+
+
+        let fetchData = () => {
+            fetch(apiUrl
+
+            ).then((res) => {
+                return res.json();
+            }).then((data) => {
+                console.log("books data:", data.books);
+                showData(data.books);
+            })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        };
+
+        btn.addEventListener('click', fetchData);
+
+    </script>
+
+</body>
+
+</html>
